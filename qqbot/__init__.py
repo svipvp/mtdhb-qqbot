@@ -13,4 +13,4 @@
 
 __version__ = '0.0.1dev'
 
-from .utils import get_config
+from .utils import generate_qqbot_config, get_qqbot_config, ConfigNotFoundError
