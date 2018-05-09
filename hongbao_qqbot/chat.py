@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    qqbot.chat
+    hongbao_qqbot.chat
     -----------
 
     chat with you

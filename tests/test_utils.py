@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 """
-    tests.utils
+    tests.test_utils
     -----------
 
-    Tests qqbot.utils
+    Tests hongbao_qqbot.utils
 
     :copyright: © 2018 by leetao
     :license: GPL3.0, see LICENSE for more details.
 """
 
-from qqbot import generate_qqbot_config, get_qqbot_config, ConfigNotFoundError
+from hongbao_qqbot import generate_qqbot_config, get_qqbot_config, ConfigNotFoundError
 
 import pytest
 import os

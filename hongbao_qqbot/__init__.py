@@ -1,7 +1,7 @@
 # -*- config: utf-8 -*-
 
 """
-    qqbot
+    hongbao_qqbot
     -----------
 
     get max red packet everyday
@@ -13,4 +13,6 @@
 
 __version__ = '0.0.1dev'
 
-from .utils import generate_qqbot_config, get_qqbot_config, ConfigNotFoundError
+from .utils import generate_qqbot_config, get_qqbot_config
+from .exception import *
+from .hongbao import RedPackage

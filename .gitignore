@@ -1,3 +1,5 @@
 *.pyc
 Env
 .vscode
+.idea
+examples
