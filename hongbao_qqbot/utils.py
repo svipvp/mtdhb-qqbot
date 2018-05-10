@@ -17,39 +17,38 @@ import os
 from .exception import NoOptionError, NoSectionError, ConfigParamTypeError, ConfigNotFoundError
 
 
-def _get_config(path,config_dict):
+def _get_config(path, config_dict):
     """
         根据配置文件路径以及配置列表返回相关配置
 
         :return dict
     """
-    
+
     config_value_dict = {}
 
     cp = configparser.ConfigParser()
-    
+
     if os.path.exists(path):
         cp.read(path)
-        if isinstance(config_dict,dict):
-            for key,value in config_dict.items():
-                if isinstance(value,list):
+        if isinstance(config_dict, dict):
+            for key, value in config_dict.items():
+                if isinstance(value, list):
                     try:
                         for item in value:
-                            config_value_dict[item] = cp.get(key,item)
+                            config_value_dict[item] = cp.get(key, item)
                     except configparser.NoSectionError as e:
                         raise NoSectionError(key)
                     except configparser.NoOptionError as e:
-                        raise NoOptionError(key,item)
-                elif isinstance(value,str):
-                    config_value_dict[value] = cp.get(key,value)
+                        raise NoOptionError(key, item)
+                elif isinstance(value, str):
+                    config_value_dict[value] = cp.get(key, value)
                 else:
-                    raise ConfigParamTypeError(value,'str or list')
+                    raise ConfigParamTypeError(value, 'str or list')
         else:
-            raise ConfigParamTypeError(config_dict,dict)
+            raise ConfigParamTypeError(config_dict, dict)
     else:
         raise ConfigNotFoundError(path)
     return config_value_dict
-
 
 
 def get_qqbot_config(path):
@@ -71,25 +70,25 @@ def generate_qqbot_config(path=None):
     cp = configparser.ConfigParser()
 
     # 添加 DEFAULT 部分    
-    cp.set("DEFAULT","chat_enabled","True")
-    cp.set("DEFAULT","share_enabled","False")
-    cp.set("DEFAULT","remember_enabled","True")
+    cp.set("DEFAULT", "chat_enabled", "True")
+    cp.set("DEFAULT", "share_enabled", "False")
+    cp.set("DEFAULT", "remember_enabled", "True")
 
     # 添加 PERSONAL 部分
     cp.add_section("PERSONAL")
-    cp.set("PERSONAL","account","*")
-    cp.set("PERSONAL","password","*")
+    cp.set("PERSONAL", "account", "*")
+    cp.set("PERSONAL", "password", "*")
 
     # 添加 PERSONAL 部分
     cp.add_section("CHATBOT")
-    cp.set("CHATBOT","bot_name","mtdhb")
-    cp.set("CHATBOT","need_train","False")
-    cp.set("CHATBOT","train_data","*")
+    cp.set("CHATBOT", "bot_name", "mtdhb")
+    cp.set("CHATBOT", "need_train", "False")
+    cp.set("CHATBOT", "train_data", "*")
 
     if path is None:
-        config_path = "qqbot.cfg"    
+        config_path = "qqbot.cfg"
     else:
-        config_path = os.path.join(path,"qqbot.cfg")
-    
-    with open(config_path,"w+") as f:
+        config_path = os.path.join(path, "qqbot.cfg")
+
+    with open(config_path, "w+") as f:
         cp.write(f)
