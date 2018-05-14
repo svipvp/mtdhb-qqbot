@@ -36,9 +36,9 @@ def _get_config(path, config_dict):
                     try:
                         for item in value:
                             config_value_dict[item] = cp.get(key, item)
-                    except configparser.NoSectionError as e:
+                    except configparser.NoSectionError:
                         raise NoSectionError(key)
-                    except configparser.NoOptionError as e:
+                    except configparser.NoOptionError:
                         raise NoOptionError(key, item)
                 elif isinstance(value, str):
                     config_value_dict[value] = cp.get(key, value)
