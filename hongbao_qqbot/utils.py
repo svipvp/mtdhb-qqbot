@@ -92,3 +92,11 @@ def generate_qqbot_config(path=None):
 
     with open(config_path, "w+") as f:
         cp.write(f)
+
+
+STAUS_CODE = {
+    "401": "未登陆",
+    "402": "请确保,饿了么是以https://h5.ele.me/hongbao/开头的链接,美团是以https://activity.waimai.meituan.com/开头的链接",
+    "403": "输入手机号号码",
+    "404": "手机号码有误"
+}
