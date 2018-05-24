@@ -1,15 +1,26 @@
 # -*- coding:utf-8 -*-
 
+"""
+    hongbao_qqbot.bot
+    -----------
+
+    the core of hongbao qqbot
+
+    :copyright: © 2018 by the leetao.
+    :license: GPL3.0,see LICENSE for more details
+"""
+
+
 from qqbot import QQBotSlot as qqbotslot, RunBot
 import json
 import os
 from utils import STAUS_CODE
-
+from chat import Tuling
 
 class Bot:
 
     __slots__ = ['chat_enabled', 'share_enabled', 'remember_enabled', 'account',
-                 'password', 'bot_name', 'need_train', 'train_data', 'auth_path']
+                 'password', 'bot_name', 'need_train', 'train_data', 'auth_path', 'chat']
 
     def __init__(self, **kwargs):
         self.chat_enabled = kwargs.get('chat_enabled', False)
@@ -21,11 +32,20 @@ class Bot:
         self.need_train = kwargs.get('need_train', False)
         self.train_data = kwargs.get('train_data', '*')
         self.auth_path = 'store.json'
+        self.chat = Tuling()
 
     @qqbotslot
     def onQQMessage(self, bot, contact, member, content):
-        # TODO 根据配置参数进行处理
-        pass
+        
+        if self.check_content(check_content):
+            if self.chat_enabled:
+                text = self.chat.response(member.name, content)
+                bot.SendTo(contact, "@{0}:{1}".format(member.name, text))
+            else:
+                bot.SendTo(contact, "@{0}:{1}".format(member.name, "小主暂未开启聊天功能😭"))
+        else:
+
+        
 
 
 
@@ -48,6 +68,19 @@ class Bot:
             else:
                 pass
         return None
+
+    def check_content(self, content):
+        """
+        check content
+        判断内容是否为外卖链接和手机号
+        :param content
+        :return bool
+        """
+        url_flag, url_status_code = self._check_url_format(content)
+        phone_flag, phone_status_code = self._check_phone_format(content)
+        if url_flag is False and phone_flag is False:
+            return True
+        return False
 
     def _check_url_format(self, url):
         """

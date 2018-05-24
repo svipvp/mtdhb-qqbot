@@ -82,3 +82,13 @@ class ApiNotFoundError(Error):
         Error.__init__(self, "没有找到 %r 对应的 api" % (key,))
         self.key = key
         self.args = (key,)
+
+class DBConnectError(Error):
+    """
+        数据库连接错误时抛出异常
+    """
+
+    def __init__(self, e):
+        Error.__init__(self," %r " %(e,))
+        self.e = e
+        self.args = (e,)
