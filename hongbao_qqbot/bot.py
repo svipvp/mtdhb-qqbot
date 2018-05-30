@@ -10,15 +10,15 @@
     :license: GPL3.0,see LICENSE for more details
 """
 
-
 from qqbot import QQBotSlot as qqbotslot, RunBot
 import json
 import os
-from utils import STAUS_CODE
-from chat import Tuling
+import re
+from .utils import STAUS_CODE
+from .chat import Tuling
+
 
 class Bot:
-
     __slots__ = ['chat_enabled', 'share_enabled', 'remember_enabled', 'account',
                  'password', 'bot_name', 'need_train', 'train_data', 'auth_path', 'chat']
 
@@ -36,20 +36,17 @@ class Bot:
 
     @qqbotslot
     def onQQMessage(self, bot, contact, member, content):
-        
-        if self.check_content(check_content):
+
+        if self.check_content(content):
             if self.chat_enabled:
                 text = self.chat.response(member.name, content)
                 bot.SendTo(contact, "@{0}:{1}".format(member.name, text))
             else:
                 bot.SendTo(contact, "@{0}:{1}".format(member.name, "小主暂未开启聊天功能😭"))
         else:
+            pass
 
-        
-
-
-
-    def get_red_package(self, bot, contact, content):
+    def get_red_package(self, bot, contact, member, content):
         """
         get max package
         分享红包链接,检测当前用户是否登陆,
@@ -93,7 +90,6 @@ class Bot:
                 return True, '403'
             else:
                 return False, '402'
-
 
     def _check_phone_format(self, phone):
         """

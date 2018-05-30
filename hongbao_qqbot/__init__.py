@@ -14,6 +14,6 @@
 __version__ = '0.0.1dev'
 
 from .utils import generate_qqbot_config, get_qqbot_config
-from .exception import get_qqbot_config, generate_qqbot_config, STAUS_CODE
+from .exception import *
 from .hongbao import RedPackage
 from .chat import Tuling
