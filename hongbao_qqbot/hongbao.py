@@ -36,7 +36,7 @@ def _get_url_wrapper(func):
 class RedPackage:
     __slots__ = ['account', 'password', 'domain', 'api_dict', 'token']
 
-    def __init__(self, account, password, domain=None):
+    def __init__(self, account = None, password = None, domain=None):
 
         self.account = account
         self.password = password

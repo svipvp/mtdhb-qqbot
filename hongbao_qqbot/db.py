@@ -37,7 +37,16 @@ class DB:
         try:
             with self.conn:
                 row = self.conn.execute("SELECT token FROM users WHERE qq = ?", (qq,)).fetchone()
-                return row
+                return row[0]
+        except Exception as e:
+            print(e)
+            return None
+
+    def is_auth(self, qq):
+        try:
+            with self.conn:
+                row = self.conn.execute("SELECT token FROM users WHERE qq = ?", (qq,)).fetchone()
+                return True if row[0] is not None else False
         except Exception as e:
             print(e)
             return None
@@ -55,7 +64,7 @@ class DB:
         try:
             with self.conn:
                 row = self.conn.execute("SELECT url FROM packages WHERE qq = ? AND status = ?", (qq, status)).fetchone()
-                return None
+                return row[0]
         except Exception as e:
             print(e)
             return None
